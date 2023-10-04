@@ -1,0 +1,103 @@
+@startuml
+class Jugador {
+- String nombre
+- Carta carta1
+- Carta carta2
+- Carta carta3
+- Carta carta4
+- int numeroCartas
++ <<Create>> Jugador(String)
++ String getNombre()
++ int getNumeroCartas()
++ void meteCarta(Carta)
++ Carta sacaCarta()
+}
+class Carta {
++ int MOTOR
++ int POTENCIA
++ int VELOCIDAD
++ int CONSUMO
+- String nombre
+- String pais
+- int motor
+- int potencia
+- int velocidad
+- double consumo
++ <<Create>> Carta()
++ <<Create>> Carta(String,String,int,int,int,double)
++ String getNombre()
++ void setNombre(String)
++ String getPais()
++ void setPais(String)
++ int getMotor()
++ void setMotor(int)
++ int getPotencia()
++ void setPotencia(int)
++ int getVelocidad()
++ void setVelocidad(int)
++ double getConsumo()
++ void setConsumo(double)
++ boolean gana(Carta,int)
++ void pintar()
+}
+class Juego {
+- Jugador jugador1
+- Jugador jugador2
+- Jugador jugador3
+- Jugador jugador4
+- Baraja baraja
+- int turno
+- int contador1
+- int contador2
+- int contador3
+- int contador4
++ void presentacion()
++ void crearJugadores()
++ Jugador getJugador(int)
++ void setJugador(Jugador,int)
++ int getTurno()
++ void setTurno(int)
++ void repartirCartas()
++ void jugar()
++ void jugarJugada()
++ int pedirCaracteristica()
++ void actualizarContadores(int)
++ void mostrarGanadores(int)
++ void mostrarResultados()
+}
+class Baraja {
+- int NUM_CARTAS
+- int pos
++ <<Create>> Baraja()
++ Carta sacarCarta()
++ int getNumeroCartasPendientes()
++ int getNumeroCartasSacadas()
++ int getNumeroCartasTotales()
+}
+class Main {
++ {static} void main(String[])
+}
+class Jugada {
++ int MOTOR
++ int POTENCIA
++ int VELOCIDAD
++ int CONSUMO
+- Carta carta1
+- Carta carta2
+- Carta carta3
+- Carta carta4
++ <<Create>> Jugada(Carta,Carta,Carta,Carta)
++ int ganadores(int)
++ void pintaCartas()
++ void pintarCarta(int)
++ void pintaGanadoresCaracteristicas()
++ void pintaGanadores()
+}
+Main .right.> Juego
+Juego --> Baraja
+Juego --> Jugador
+Juego ..> Jugada
+Jugador --> Carta
+Jugada --> Carta
+Baraja ..> Carta
+@enduml
