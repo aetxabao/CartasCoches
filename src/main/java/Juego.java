@@ -7,7 +7,14 @@ import java.util.Scanner;
 public class Juego {
 
     // region Atributos
-    // TODO 51: atributos
+    private Jugador jugador1, jugador2, jugador3, jugador4;
+
+    private Baraja baraja;
+
+    private int turno;
+
+    private int contador1, contador2, contador3, contador4;
+
     // endregion
 
     /**
@@ -25,25 +32,24 @@ public class Juego {
      * Crea los jugadores del juego. Pide el nombre de cada uno de ellos por teclado.
      */
     public void crearJugadores() {
-        // TODO 52: Descomentar y adaptar el código a los atributos de la clase Juego
-//        Scanner teclado = new Scanner(System.in);
-//        String nombre;
-//
-//        System.out.print("Nombre del jugador 1: ");
-//        nombre = teclado.nextLine();
-//        jugador1 = new Jugador(nombre);
-//
-//        System.out.print("Nombre del jugador 2: ");
-//        nombre = teclado.nextLine();
-//        jugador2 = new Jugador(nombre);
-//
-//        System.out.print("Nombre del jugador 3: ");
-//        nombre = teclado.nextLine();
-//        jugador3 = new Jugador(nombre);
-//
-//        System.out.print("Nombre del jugador 4: ");
-//        nombre = teclado.nextLine();
-//        jugador4 = new Jugador(nombre);
+        Scanner teclado = new Scanner(System.in);
+        String nombre;
+
+        System.out.print("Nombre del jugador 1: ");
+        nombre = teclado.nextLine();
+        jugador1 = new Jugador(nombre);
+
+        System.out.print("Nombre del jugador 2: ");
+        nombre = teclado.nextLine();
+        jugador2 = new Jugador(nombre);
+
+        System.out.print("Nombre del jugador 3: ");
+        nombre = teclado.nextLine();
+        jugador3 = new Jugador(nombre);
+
+        System.out.print("Nombre del jugador 4: ");
+        nombre = teclado.nextLine();
+        jugador4 = new Jugador(nombre);
     }
 
     /**
@@ -52,7 +58,15 @@ public class Juego {
      * @return referencia al jugador
      */
     public Jugador getJugador(int numeroJugador) {
-        // TODO 53: getJugador
+        if (numeroJugador == 1) {
+            return jugador1;
+        } else if (numeroJugador == 2) {
+            return jugador2;
+        } else if (numeroJugador == 3) {
+            return jugador3;
+        } else if (numeroJugador == 4) {
+            return jugador4;
+        }
         return null;
     }
 
@@ -62,20 +76,32 @@ public class Juego {
      * @param numeroJugador número del jugador al que corresponde del 1 al 4
      */
     public void setJugador(Jugador jugador, int numeroJugador) {
-        // TODO 54: setJugador
+        if (numeroJugador == 1) {
+            jugador1 = jugador;
+        } else if (numeroJugador == 2) {
+            jugador2 = jugador;
+        } else if (numeroJugador == 3) {
+            jugador3 = jugador;
+        } else if (numeroJugador == 4) {
+            jugador4 = jugador;
+        }
     }
 
     /**
      * Devuelve el turno actual
      * @return
      */
-    // TODO 55: getTurno
+    public int getTurno() {
+        return turno;
+    }
 
     /**
      * Asigna el turno actual, 1 para el jugador 1, 2 para el jugador 2, etc.
      * @param turno número del turno actual
      */
-    // TODO 56: setTurno
+    public void setTurno(int turno) {
+        this.turno = turno % 4;
+    }
 
     /**
      * Reparte las cartas entre los jugadores.
@@ -84,7 +110,24 @@ public class Juego {
      * Inicializa el turno a 0.
      */
     public void repartirCartas() {
-        // TODO 56: repartirCartas
+        baraja = new Baraja();
+        jugador1.meterCarta(baraja.sacarCarta());
+        jugador2.meterCarta(baraja.sacarCarta());
+        jugador3.meterCarta(baraja.sacarCarta());
+        jugador4.meterCarta(baraja.sacarCarta());
+        jugador1.meterCarta(baraja.sacarCarta());
+        jugador2.meterCarta(baraja.sacarCarta());
+        jugador3.meterCarta(baraja.sacarCarta());
+        jugador4.meterCarta(baraja.sacarCarta());
+        jugador1.meterCarta(baraja.sacarCarta());
+        jugador2.meterCarta(baraja.sacarCarta());
+        jugador3.meterCarta(baraja.sacarCarta());
+        jugador4.meterCarta(baraja.sacarCarta());
+        jugador1.meterCarta(baraja.sacarCarta());
+        jugador2.meterCarta(baraja.sacarCarta());
+        jugador3.meterCarta(baraja.sacarCarta());
+        jugador4.meterCarta(baraja.sacarCarta());
+        turno = 0;
     }
 
     /**
@@ -109,7 +152,18 @@ public class Juego {
      * Finalmente, se muestran los nombres de todos los ganadores de la jugada.
      */
     public void jugarJugada() {
-        // TODO 56: jugarJugada
+        turno++;
+        Carta carta1 = jugador1.sacarCarta();
+        Carta carta2 = jugador2.sacarCarta();
+        Carta carta3 = jugador3.sacarCarta();
+        Carta carta4 = jugador4.sacarCarta();
+        Jugada jugada = new Jugada(carta1, carta2, carta3, carta4);
+        jugada.pintarCarta(turno);
+        int caracteristica = pedirCaracteristica();
+        jugada.pintaCartas();
+        int ganadores = jugada.ganadores(caracteristica);
+        actualizarContadores(ganadores);
+        mostrarGanadores(ganadores);
     }
 
     /**
@@ -118,20 +172,18 @@ public class Juego {
      * @return número de la característica
      */
     public int pedirCaracteristica() {
-        // TODO 57: Descomentar y adaptar el código a los atributos de la clase Juego
-//        String nombre = getJugador(turno).getNombre();
-//        System.out.println(nombre + ", elige característica");
-//        Scanner teclado = new Scanner(System.in);
-//        int caracteristica;
-//        System.out.print("1. Motor    ");
-//        System.out.print("2. Potencia    ");
-//        System.out.print("3. Velocidad    ");
-//        System.out.print("4. Consumo    ");
-//        System.out.println();
-//        System.out.print("Característica [1-4]: ");
-//        caracteristica = teclado.nextInt();
-//        return caracteristica;
-        return 0;
+        String nombre = getJugador(turno).getNombre();
+        System.out.println(nombre + ", elige característica");
+        Scanner teclado = new Scanner(System.in);
+        int caracteristica;
+        System.out.print("1. Motor    ");
+        System.out.print("2. Potencia    ");
+        System.out.print("3. Velocidad    ");
+        System.out.print("4. Consumo    ");
+        System.out.println();
+        System.out.print("Característica [1-4]: ");
+        caracteristica = teclado.nextInt();
+        return caracteristica;
     }
 
     /**
@@ -142,7 +194,19 @@ public class Juego {
      * @see Jugada#ganadores(int)
      */
     public void actualizarContadores(int ganadores) {
-        // TODO 58: actualizarContadores
+        int g = ganadores;
+        if ((g & 1) == 1) {
+            contador1++;
+        }
+        if ((g & 2) == 2) {
+            contador2++;
+        }
+        if ((g & 4) == 4) {
+            contador3++;
+        }
+        if ((g & 8) == 8) {
+            contador4++;
+        }
     }
 
     /**
@@ -151,7 +215,20 @@ public class Juego {
      * @see Jugada#ganadores(int)
      */
     public void mostrarGanadores(int ganadores) {
-        // TODO 59: mostrarGanadores
+        String nombres = "";
+        if ((ganadores & 1) == 1) {
+            nombres += jugador1.getNombre() + " ";
+        }
+        if ((ganadores & 2) == 2) {
+            nombres += jugador2.getNombre() + " ";
+        }
+        if ((ganadores & 4) == 4) {
+            nombres += jugador3.getNombre() + " ";
+        }
+        if ((ganadores & 8) == 8) {
+            nombres += jugador4.getNombre() + " ";
+        }
+        System.out.println("Ganador(es) de la jugada: " + nombres);
     }
 
     /**
@@ -160,7 +237,13 @@ public class Juego {
      * aunque al ganar haya empatado con otro jugador.
      */
     public void mostrarResultados() {
-        // TODO 60: mostrarResultados
+        System.out.println("Resultados:");
+        System.out.println("-".repeat(20));
+        System.out.println(jugador1.getNombre() + " ha ganado: " + contador1);
+        System.out.println(jugador2.getNombre() + " ha ganado: " + contador2);
+        System.out.println(jugador3.getNombre() + " ha ganado: " + contador3);
+        System.out.println(jugador4.getNombre() + " ha ganado: " + contador4);
+        System.out.println("-".repeat(20));
     }
 
 }

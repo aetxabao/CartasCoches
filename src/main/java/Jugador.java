@@ -8,7 +8,12 @@
 public class Jugador {
 
     // region Atributos
-    // TODO 41: atributos
+    private String nombre;
+    private Carta carta1;
+    private Carta carta2;
+    private Carta carta3;
+    private Carta carta4;
+    private int numeroCartas;
 
     // endregion
 
@@ -17,20 +22,25 @@ public class Jugador {
      * @param nombre del jugador
      */
     public Jugador(String nombre) {
-        // TODO 42: Jugador
+        this.nombre = nombre;
+        this.numeroCartas = 0;
     }
 
     /**
      * Devuelve el nombre del jugador
      * @return nombre del jugador
      */
-    // TODO 43.1: getter 1
+    public String getNombre() {
+        return nombre;
+    }
 
     /**
      * Devuelve el número de cartas por jugar del jugador
      * @return
      */
-    // TODO 43.2: getter 2
+    public int getNumeroCartas() {
+        return numeroCartas;
+    }
 
     /**
      * Según el número de cartas que tenga el jugador
@@ -38,7 +48,16 @@ public class Jugador {
      * @return carta pasada como parámetro
      */
     public void meterCarta(Carta carta) {
-        // TODO 44: meterCarta
+        if (numeroCartas == 0) {
+            carta1 = carta;
+        } else if (numeroCartas == 1) {
+            carta2 = carta;
+        } else if (numeroCartas == 2) {
+            carta3 = carta;
+        } else if (numeroCartas == 3) {
+            carta4 = carta;
+        }
+        numeroCartas++;
     }
 
     /**
@@ -51,8 +70,22 @@ public class Jugador {
      * @return carta sacada
      */
     public Carta sacarCarta() {
-        // TODO 45: sacarCarta
-        return null;
+        Carta carta = null;
+        if (numeroCartas == 1) {
+            carta = carta1;
+            carta1 = null;
+        } else if (numeroCartas == 2) {
+            carta = carta2;
+            carta2 = null;
+        } else if (numeroCartas == 3) {
+            carta = carta3;
+            carta3 = null;
+        } else if (numeroCartas == 4) {
+            carta = carta4;
+            carta4 = null;
+        }
+        numeroCartas--;
+        return carta;
     }
 
 }
